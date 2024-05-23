@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Progate</title>
+  <link rel="stylesheet" href="tugasProgate.css">
+</head>
+<body>
+  <h1>Mulai menggunakan AJAX</h1>
+
+  <button type="button" id="button" onclick="fetchData()">Fetch data</button>
+  <div id="progate"></div>
+
+  <script>
+    function fetchData() {
+      const xhttp = new XMLHttpRequest();
+      const url = "https://pokeapi.co/api/v2/pokemon?limit=10";
+      const httpMethod = "GET";
+
+      xhttp.onload = function() {
+          const response = JSON.parse(this.responseText);
+          const results = response.results;
+
+          let data = '<table border="1"><tr><th>No</th><th>Name</th></tr>';
+          for (let i = 0; i < results.length; i++) {
+            data += `<tr><td>${i + 1}</td><td>${results[i].name}</td></tr>`;
+          }
+          data += '</table>';
+
+          document.getElementById("progate").innerHTML = data;
+      };
+
+      xhttp.open(httpMethod, url);
+      xhttp.send();
+    }
+  </script>
+</body>
+</html>
